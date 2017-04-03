@@ -1,0 +1,20 @@
+.container
+  .row
+    .col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
+      form(action='/Index/Login', method='post')
+        .form-horizontal
+          h4 Login
+          hr
+          .form-group
+            label.control-label.col-md-2(for='Username') Username
+            .col-md-10
+              input#Username.form-control.text-box.single-line(data-val='true', data-val-required='The Username field is required.', name='Username', type='text', value='')
+              span.field-validation-valid.text-danger(data-valmsg-for='Username', data-valmsg-replace='true')
+          .form-group
+            label.control-label.col-md-2(for='Password') Password
+            .col-md-10
+              input#Password.form-control.text-box.single-line.password(data-val='true', data-val-required='The Password field is required.', name='Password', type='password', value='')
+              span.field-validation-valid.text-danger(data-valmsg-for='Password', data-valmsg-replace='true')
+          .form-group
+            .col-md-offset-2.col-md-10
+              input.btn.btn-default(type='submit', value='Accedi')

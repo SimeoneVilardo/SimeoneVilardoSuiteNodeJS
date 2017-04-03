@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+var pug = require('pug');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -21,6 +22,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+var hybridEngine = function (req, res, next) {
+  if(req.xhr){
+    req.viewName = req.url.split('?')[0].replace('/', '').toLowerCase();
+  }
+  else{
+    if( req.url === '/') req.url = '/index';
+    req.viewName = 'layout';
+    req.partialView = pug.renderFile(__dirname + '/views' + req.url.split('?')[0] + '.pug');
+  }
+  next();
+};
+
+app.use(hybridEngine);
 
 app.use('/', index);
 app.use('/users', users);
